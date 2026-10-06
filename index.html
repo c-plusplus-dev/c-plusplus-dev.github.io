@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Ayaan's little corner of the internet. Projects, experiments, and things I'm building.">
-  <title>Ayaan — things I build</title>
+  <meta name="description" content="c-plusplus-dev's little corner of the internet. Projects, experiments, and things I'm building.">
+  <title>c-plusplus-dev --- things I build</title>
   <style>
     :root {
       --bg: #0d0d0f;
@@ -13,6 +13,7 @@
       --text: #f1f0eb;
       --muted: #9b9aa3;
       --faint: #5e5d66;
+      --light-faint: #6f6e77;
       --line: #29292f;
       --accent: #b8ff5c;
       --accent-dark: #17210b;
@@ -215,15 +216,37 @@
 
     .project .why b { color: var(--accent); }
 
+    .project .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      margin-top: auto;
+      margin-bottom: -30px;
+
+      color: var(--faint);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .02em;
+    }
+
+    .project .status::before {
+      content: "status:";
+      font-weight: 700;
+      margin-right: 6px;
+      color: var(--light-faint);
+    }
+
     .project-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 15px;
-      margin-top: auto;
+      margin-top: 0;
       padding-top: 28px;
       color: var(--muted);
       font-size: .86rem;
+      white-space: nowrap;
     }
 
     .arrow {
@@ -289,11 +312,11 @@
   <header>
     <div class="wrap">
       <nav>
-        <a class="logo" href="#">ayaan<span>.</span></a>
+        <a class="logo" href="#">c-plusplus<span>-dev</span></a>
         <div class="nav-links">
           <a href="#projects">projects</a>
           <a href="#about">about</a>
-          <a href="https://github.com/ProPythonCoderAya">github</a>
+          <a href="https://github.com/c-plusplus-dev">github</a>
         </div>
       </nav>
     </div>
@@ -305,13 +328,13 @@
         <div class="eyebrow">hello, internet</div>
         <h1>I make things.<br>Sometimes useful ones.</h1>
         <p>
-          I'm Ayaan. I like programming, graphics, weird experiments, and turning
+          I'm c-plusplus-dev. I like programming, graphics, weird experiments, and turning
           <strong>"wouldn't it be funny if..."</strong> into an actual project.
           This is where I keep some of the stuff I'm building.
         </p>
         <div class="actions">
           <a class="button primary" href="#projects">see what I'm building ↓</a>
-          <a class="button" href="https://github.com/ProPythonCoderAya">GitHub ↗</a>
+          <a class="button" href="https://github.com/c-plusplus-dev">GitHub ↗</a>
         </div>
       </section>
 
@@ -322,7 +345,7 @@
         </div>
 
         <div class="projects">
-          <a class="project featured" href="https://github.com/ProPythonCoderAya/Q-Tip">
+          <a class="project featured" href="https://github.com/c-plusplus-dev/Q-Tip">
             <span class="tag">C++ · graphics</span>
             <h3>Q-Tip</h3>
             <p>
@@ -331,57 +354,68 @@
               something much more interesting.
             </p>
             <p class="why"><b>Why:</b> I wanted the boring setup out of the way so I could get to the fun part.</p>
+
+            <span class="status">work in progress</span>
             <div class="project-footer">
               <span>my main C++ project right now</span>
               <span class="arrow">open repo →</span>
             </div>
           </a>
 
-          <a class="project" href="https://github.com/ProPythonCoderAya/Budget">
+          <a class="project" href="https://github.com/c-plusplus-dev/Budget">
             <span class="tag">C++ · app</span>
             <h3>Budget</h3>
-            <p>A real budgeting application — and a useful real-world test for Q-Tip and UIKit.</p>
-            <p class="why"><b>Why:</b> Libraries are much easier to judge when something actually depends on them.</p>
-            <div class="project-footer">
-              <span>work in progress</span>
-              <span class="arrow">repo →</span>
-            </div>
-          </a>
+            <p>A real budgeting application, that has many bugs</p>
 
-          <a class="project" href="https://github.com/ProPythonCoderAya/ScreenSaver">
-            <span class="tag">Python · macOS</span>
-            <h3>ScreenSaver</h3>
-            <p>A Matrix-like screensaver app for macOS, with an installer and automatic updates.</p>
+            <span class="status">done</span>
             <div class="project-footer">
               <span>free & open source</span>
               <span class="arrow">repo →</span>
             </div>
           </a>
 
-          <a class="project" href="https://github.com/ProPythonCoderAya/NebulaOS">
+          <a class="project" href="https://github.com/c-plusplus-dev/ScreenSaver">
+            <span class="tag">Python · macOS</span>
+            <h3>ScreenSaver</h3>
+            <p>A Matrix-like screensaver app for macOS, with an installer and automatic updates.</p>
+
+            <span class="status">done</span>
+            <div class="project-footer">
+              <span>free & open source</span>
+              <span class="arrow">repo →</span>
+            </div>
+          </a>
+
+          <a class="project" href="https://github.com/c-plusplus-dev/NebulaOS">
             <span class="tag">Python · experiment</span>
             <h3>NebulaOS</h3>
             <p>A deliberately ridiculous little operating-system project. More experiment than operating system.</p>
+
+            <span class="status">done</span>
             <div class="project-footer">
               <span>an experiment that got out of hand</span>
               <span class="arrow">repo →</span>
             </div>
           </a>
 
-          <a class="project" href="https://github.com/ProPythonCoderAya/homebrew-q-tip-uikit">
+          <a class="project" href="https://github.com/c-plusplus-dev/homebrew-q-tip-uikit">
             <span class="tag">C++ · UI</span>
             <h3>Q-Tip UIKit</h3>
             <p>The UI layer I'm building on top of Q-Tip: widgets, containers, layouts, and all the fun little problems that come with them.</p>
+
+            <span class="status">work in progress</span>
             <div class="project-footer">
               <span>part of the Q-Tip ecosystem</span>
               <span class="arrow">repo →</span>
             </div>
           </a>
 
-          <a class="project" href="https://github.com/ProPythonCoderAya/Catch-The-Chickens-">
+          <a class="project" href="https://github.com/c-plusplus-dev/Catch-The-Chickens-">
             <span class="tag">Unity · game</span>
             <h3>Catch the Chickens</h3>
             <p>A game experiment that exists because sometimes the correct response to an idea is to make the thing.</p>
+
+            <span class="status">semi-done, not working on it</span>
             <div class="project-footer">
               <span>older experiment</span>
               <span class="arrow">repo →</span>
@@ -421,8 +455,8 @@
 
   <footer>
     <div class="wrap">
-      <span>© 2026 Ayaan · built by me, not a marketing department</span>
-      <a href="https://github.com/ProPythonCoderAya">github.com/ProPythonCoderAya ↗</a>
+      <span>© 2026 c-plusplus-dev · built by me, not a marketing department</span>
+      <a href="https://github.com/c-plusplus-dev">github.com/c-plusplus-dev ↗</a>
     </div>
   </footer>
 </body>
