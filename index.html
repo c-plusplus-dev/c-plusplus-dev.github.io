@@ -1,14 +1,429 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Nebula | Innovative software</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ayaan's little corner of the internet. Projects, experiments, and things I'm building.">
+  <title>Ayaan — things I build</title>
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --panel: #151519;
+      --panel-hover: #1b1b21;
+      --text: #f1f0eb;
+      --muted: #9b9aa3;
+      --faint: #5e5d66;
+      --line: #29292f;
+      --accent: #b8ff5c;
+      --accent-dark: #17210b;
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(184,255,92,.07), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #111;
+    }
+
+    .wrap {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 110px 0 90px;
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--accent);
+      font: 700 .78rem ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.2rem, 9vw, 7.2rem);
+      line-height: .92;
+      letter-spacing: -.075em;
+      max-width: 900px;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .hero p strong { color: var(--text); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      font-weight: 650;
+    }
+
+    .button:hover {
+      background: var(--panel-hover);
+      border-color: #3b3b43;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #111;
+    }
+
+    section { padding: 75px 0; }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: -.035em;
+    }
+
+    .section-heading small {
+      color: var(--faint);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      min-height: 270px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(21,21,25,.72);
+      transition: transform .16s ease, background .16s ease, border-color .16s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-3px);
+      background: var(--panel-hover);
+      border-color: #3b3b43;
+    }
+
+    .project.featured {
+      grid-column: span 2;
+      min-height: 310px;
+    }
+
+    .tag {
+      width: fit-content;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #202025;
+      color: var(--muted);
+      font: 700 .72rem ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .project h3 {
+      margin: 22px 0 8px;
+      font-size: 1.45rem;
+      letter-spacing: -.035em;
+    }
+
+    .project p {
+      margin: 0;
+      max-width: 700px;
+      color: var(--muted);
+    }
+
+    .project .why {
+      margin-top: 13px;
+      color: #c8c7ce;
+      font-size: .92rem;
+    }
+
+    .project .why b { color: var(--accent); }
+
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-top: auto;
+      padding-top: 28px;
+      color: var(--muted);
+      font-size: .86rem;
+    }
+
+    .arrow {
+      color: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 60px;
+      border-top: 1px solid var(--line);
+    }
+
+    .about p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .note {
+      padding: 22px;
+      border-left: 2px solid var(--accent);
+      background: var(--panel);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .note p {
+      margin: 0;
+      font-size: .96rem;
+    }
+
+    .note b { color: var(--text); }
+
+    footer {
+      padding: 35px 0 55px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-size: .86rem;
+    }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 700px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      header { padding: 20px 0; }
+      .nav-links { display: none; }
+      .hero { padding: 80px 0 65px; }
+      section { padding: 55px 0; }
+      .projects { grid-template-columns: 1fr; }
+      .project.featured { grid-column: span 1; }
+      .about { grid-template-columns: 1fr; gap: 25px; }
+      footer .wrap { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Nebula, where we build innovative software for macOS.</h1>
-  <p>This is the official page for my open-source software.</p>
-  <ul>
-    <li><a href="https://github.com/ProPythonCoderAya/ScreenSaver">ScreenSaver</a></li>
-    <li><a href="https://github.com/ProPythonCoderAya/NebulaOS">NebulaOS</a></li>
-  </ul>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a class="logo" href="#">ayaan<span>.</span></a>
+        <div class="nav-links">
+          <a href="#projects">projects</a>
+          <a href="#about">about</a>
+          <a href="https://github.com/ProPythonCoderAya">github</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero">
+        <div class="eyebrow">hello, internet</div>
+        <h1>I make things.<br>Sometimes useful ones.</h1>
+        <p>
+          I'm Ayaan. I like programming, graphics, weird experiments, and turning
+          <strong>"wouldn't it be funny if..."</strong> into an actual project.
+          This is where I keep some of the stuff I'm building.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="#projects">see what I'm building ↓</a>
+          <a class="button" href="https://github.com/ProPythonCoderAya">GitHub ↗</a>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-heading">
+          <h2>Things I've made</h2>
+          <small>not a startup pitch deck</small>
+        </div>
+
+        <div class="projects">
+          <a class="project featured" href="https://github.com/ProPythonCoderAya/Q-Tip">
+            <span class="tag">C++ · graphics</span>
+            <h3>Q-Tip</h3>
+            <p>
+              A small 2D graphics library built on SDL3. It started as an idea for
+              making graphics programming less annoying and has slowly grown into
+              something much more interesting.
+            </p>
+            <p class="why"><b>Why:</b> I wanted the boring setup out of the way so I could get to the fun part.</p>
+            <div class="project-footer">
+              <span>my main C++ project right now</span>
+              <span class="arrow">open repo →</span>
+            </div>
+          </a>
+
+          <a class="project" href="https://github.com/ProPythonCoderAya/Budget">
+            <span class="tag">C++ · app</span>
+            <h3>Budget</h3>
+            <p>A real budgeting application — and a useful real-world test for Q-Tip and UIKit.</p>
+            <p class="why"><b>Why:</b> Libraries are much easier to judge when something actually depends on them.</p>
+            <div class="project-footer">
+              <span>work in progress</span>
+              <span class="arrow">repo →</span>
+            </div>
+          </a>
+
+          <a class="project" href="https://github.com/ProPythonCoderAya/ScreenSaver">
+            <span class="tag">Python · macOS</span>
+            <h3>ScreenSaver</h3>
+            <p>A Matrix-like screensaver app for macOS, with an installer and automatic updates.</p>
+            <div class="project-footer">
+              <span>free & open source</span>
+              <span class="arrow">repo →</span>
+            </div>
+          </a>
+
+          <a class="project" href="https://github.com/ProPythonCoderAya/NebulaOS">
+            <span class="tag">Python · experiment</span>
+            <h3>NebulaOS</h3>
+            <p>A deliberately ridiculous little operating-system project. More experiment than operating system.</p>
+            <div class="project-footer">
+              <span>an experiment that got out of hand</span>
+              <span class="arrow">repo →</span>
+            </div>
+          </a>
+
+          <a class="project" href="https://github.com/ProPythonCoderAya/homebrew-q-tip-uikit">
+            <span class="tag">C++ · UI</span>
+            <h3>Q-Tip UIKit</h3>
+            <p>The UI layer I'm building on top of Q-Tip: widgets, containers, layouts, and all the fun little problems that come with them.</p>
+            <div class="project-footer">
+              <span>part of the Q-Tip ecosystem</span>
+              <span class="arrow">repo →</span>
+            </div>
+          </a>
+
+          <a class="project" href="https://github.com/ProPythonCoderAya/Catch-The-Chickens-">
+            <span class="tag">Unity · game</span>
+            <h3>Catch the Chickens</h3>
+            <p>A game experiment that exists because sometimes the correct response to an idea is to make the thing.</p>
+            <div class="project-footer">
+              <span>older experiment</span>
+              <span class="arrow">repo →</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <div>
+          <div class="section-heading">
+            <h2>A bit about this place</h2>
+          </div>
+          <p>
+            I don't really want this site to be a perfectly polished portfolio.
+            I'd rather it show what I'm actually interested in and what I'm
+            currently messing around with.
+          </p>
+          <p>
+            Some projects will be serious. Some will be silly. Some will break
+            spectacularly. That's kind of the point.
+          </p>
+        </div>
+
+        <aside class="note">
+          <p>
+            <b>About AI:</b> I use AI as a tool when it helps — especially for
+            boring work, explanations, debugging, or getting a basic starting
+            point. That doesn't mean it replaces the part I care about:
+            deciding what to build, changing it, breaking it, fixing it, and
+            figuring out where I want to take it.
+          </p>
+        </aside>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Ayaan · built by me, not a marketing department</span>
+      <a href="https://github.com/ProPythonCoderAya">github.com/ProPythonCoderAya ↗</a>
+    </div>
+  </footer>
 </body>
 </html>
