@@ -1,10 +1,495 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Documentation for projects by c-plusplus-dev.">
+  <title>Documentation · c-plusplus-dev</title>
+
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --panel: #151519;
+      --panel-hover: #1b1b21;
+      --text: #f1f0eb;
+      --muted: #9b9aa3;
+      --faint: #5e5d66;
+      --light-faint: #6f6e77;
+      --line: #29292f;
+      --accent: #b8ff5c;
+      --accent-dark: #17210b;
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: clip;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      width: 30rem;
+      height: 30rem;
+
+      background: radial-gradient(
+              circle at 80% 0%,
+              rgba(184, 255, 92, .1),
+              transparent 70%
+      );
+
+      pointer-events: none;
+      z-index: 0;
+
+      animation: limePulse 10s ease-in-out infinite;
+    }
+
+    header,
+    main,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes limePulse {
+      0%, 100% {
+        opacity: .5;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.15);
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #111;
+    }
+
+    .wrap {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 105px 0 65px;
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--accent);
+      font: 700 .78rem ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.2rem, 9vw, 7rem);
+      line-height: .92;
+      letter-spacing: -.075em;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .hero strong { color: var(--text); }
+
+    section { padding: 55px 0 75px; }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: -.035em;
+    }
+
+    .section-heading small {
+      color: var(--faint);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      min-height: 230px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(21,21,25,.72);
+      transition:
+              transform .16s ease,
+              background .16s ease,
+              border-color .16s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-3px);
+      background: var(--panel-hover);
+      border-color: #3b3b43;
+    }
+
+    .project.featured {
+      grid-column: span 2;
+      min-height: 250px;
+    }
+
+    .tag {
+      width: fit-content;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #202025;
+      color: var(--muted);
+      font: 700 .72rem ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .project h3 {
+      margin: 20px 0 8px;
+      font-size: 1.4rem;
+      letter-spacing: -.035em;
+    }
+
+    .project p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-top: auto;
+      padding-top: 28px;
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--faint);
+      font-size: .76rem;
+    }
+
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--faint);
+    }
+
+    .status.available::before {
+      background: var(--accent);
+    }
+
+    .arrow {
+      color: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .project.disabled {
+      opacity: .65;
+      cursor: default;
+    }
+
+    .project.disabled:hover {
+      transform: none;
+      background: rgba(21,21,25,.72);
+      border-color: var(--line);
+    }
+
+    .notice {
+      margin-top: 35px;
+      padding: 22px;
+      border-left: 2px solid var(--accent);
+      background: var(--panel);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .notice p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .notice b { color: var(--text); }
+
+    .about {
+      border-top: 1px solid var(--line);
+      padding-top: 65px;
+    }
+
+    .about p {
+      max-width: 700px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 35px 0 55px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-size: .86rem;
+    }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 700px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      header { padding: 20px 0; }
+      .nav-links { display: none; }
+      .hero { padding: 80px 0 55px; }
+      section { padding: 45px 0 60px; }
+      .projects { grid-template-columns: 1fr; }
+      .project.featured { grid-column: span 1; }
+      footer .wrap { flex-direction: column; }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Body</h1>
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="index.html">
+        c-plusplus<span>-dev</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#projects">projects</a>
+        <a href="#about">about</a>
+        <a href="index.html">home</a>
+        <a href="https://github.com/c-plusplus-dev">github</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero">
+      <div class="eyebrow">documentation / index</div>
+
+      <h1>How things<br>work.</h1>
+
+      <p>
+        Documentation for the projects I've built.
+        APIs, implementation details, examples, and the occasional
+        explanation of why something works the way it does.
+        Everything in one place.
+      </p>
+    </section>
+
+    <section id="projects">
+      <div class="section-heading">
+        <h2>Project documentation</h2>
+        <small>pick something to explore</small>
+      </div>
+
+      <div class="projects">
+
+        <a class="project" href="/docs/q-tip.html">
+          <span class="tag">C++ · graphics library</span>
+
+          <h3>Q-Tip</h3>
+
+          <p>
+            Documentation for the Q-Tip graphics library.
+            Learn about windows, rendering, events, colors,
+            textures, and the rest of the API.
+          </p>
+
+          <div class="project-footer">
+            <span class="status">documentation coming soon</span>
+            <span class="arrow">explore →</span>
+          </div>
+        </a>
+
+        <a class="project" href="/docs/q-tip-uikit.html">
+          <span class="tag">C++ · UI framework</span>
+
+          <h3>Q-Tip UIKit</h3>
+
+          <p>
+            The UI layer built on top of Q-Tip.
+            Widgets, containers, layouts, navigation,
+            and building interfaces.
+          </p>
+
+          <div class="project-footer">
+            <span class="status">documentation coming soon</span>
+            <span class="arrow">explore →</span>
+          </div>
+        </a>
+
+        <a class="project" href="/docs/budget.html">
+          <span class="tag">C++ · application</span>
+
+          <h3>Budget</h3>
+
+          <p>
+            Documentation for the original Budget application,
+            including its features and data storage.
+          </p>
+
+          <div class="project-footer">
+            <span class="status">documentation coming soon</span>
+            <span class="arrow">explore →</span>
+          </div>
+        </a>
+
+        <a class="project" href="/docs/qbudget.html">
+          <span class="tag">C++ · application</span>
+
+          <h3>QBudget</h3>
+
+          <p>
+            Documentation covering QBudget's architecture,
+            database format, monthly storage, and application features.
+          </p>
+
+          <div class="project-footer">
+            <span class="status">documentation coming soon</span>
+            <span class="arrow">explore →</span>
+          </div>
+        </a>
+
+        <a class="project" href="/docs/screensaver.html">
+          <span class="tag">Python · macOS</span>
+
+          <h3>ScreenSaver</h3>
+
+          <p>
+            Information about installation, configuration,
+            how the screensaver works, and development.
+          </p>
+
+          <div class="project-footer">
+            <span class="status">documentation coming soon</span>
+            <span class="arrow">explore →</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="notice">
+        <p>
+          <b>Still building things.</b>
+          Not every project has documentation yet.
+          Pages will appear as the documentation is written.
+        </p>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="section-heading">
+        <h2>About these docs</h2>
+      </div>
+
+      <p>
+        These pages are meant to explain how my projects actually work,
+        not just list their features.
+      </p>
+
+      <p>
+        Expect API references, code examples, implementation details,
+        design decisions, and explanations of things that aren't
+        immediately obvious from reading the source code.
+      </p>
+
+      <p>
+        The source code is still the ultimate reference.
+        If something here is outdated, the repository is where
+        the actual implementation lives.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 c-plusplus-dev · documentation, written as things get built.</span>
+    <a href="https://github.com/c-plusplus-dev">github.com/c-plusplus-dev ↗</a>
+  </div>
+</footer>
 </body>
 </html>

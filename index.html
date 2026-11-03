@@ -26,7 +26,11 @@
 
     body {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       margin: 0;
+      overflow-x: clip;
       background: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -49,9 +53,16 @@
       );
 
       pointer-events: none;
-      z-index: -1;
+      z-index: 0;
 
       animation: limePulse 10s ease-in-out infinite;
+    }
+
+    header,
+    main,
+    footer {
+      position: relative;
+      z-index: 1;
     }
 
     @keyframes limePulse {
@@ -338,6 +349,17 @@
       .about { grid-template-columns: 1fr; gap: 25px; }
       footer .wrap { flex-direction: column; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -348,6 +370,7 @@
         <div class="nav-links">
           <a href="#projects">projects</a>
           <a href="#about">about</a>
+          <a href="/docs">docs</a>
           <a href="https://github.com/c-plusplus-dev">github</a>
         </div>
       </nav>
